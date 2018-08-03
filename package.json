@@ -13,16 +13,22 @@
   "author": "captainwz",
   "license": "MIT",
   "devDependencies": {
+    "antd-mobile": "^2.2.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-tappable": "^1.0.4",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "antd": "^3.7.3",
     "d3": "^5.5.0"
   }
 }

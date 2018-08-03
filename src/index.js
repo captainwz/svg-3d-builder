@@ -57,6 +57,8 @@ class Builder {
             }
         })
 
+        return this;
+
     }
 
     setCamera (opt) {
@@ -248,4 +250,4 @@ class Builder {
 
 }
 
-export default Builder;
+export default new Builder();

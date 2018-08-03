@@ -1,2 +1,2 @@
 import Builder from './index';
-window.builder = new Builder();
+window.Builder = Builder;

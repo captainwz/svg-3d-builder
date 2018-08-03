@@ -1,10 +1,10 @@
 var path = require('path');
 
 module.exports = {
-    entry: path.resolve(__dirname, '../src/es5.js'),
+    entry: path.resolve(__dirname, 'index.js'),
     output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: 'svg-3d-builder.min.js'
+        path: path.resolve(__dirname),
+        filename: 'bundle.js'
     },
     resolve: {
         extensions: ['.js']
@@ -16,10 +16,10 @@ module.exports = {
                 exclude: [/node_modules/],
                 loader: 'babel-loader',
                 options: {
-                    presets: ['stage-0', 'env']
+                    presets: ['react', 'stage-0', 'env']
                 },
             }
         ]
     },
-    devtool: "source-map"
+    mode: 'production'
 }
