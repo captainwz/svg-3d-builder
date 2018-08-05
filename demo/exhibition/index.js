@@ -26,6 +26,109 @@ class App extends Component {
             selectedKey: 'bezier-surface'
         }
     }
+    
+    drawSphere () {
+
+        this.setState({
+            alpha: 0,
+            beta: 0,
+            upInt: null,
+            upActive: false,
+            leftInt: null,
+            leftActive: false,
+            rightInt: null,
+            rightActive: false,
+            downInt: null,
+            downActive: false
+        })
+
+        const drawCircle0 = (x, r) => {
+            let lineStr = 'M ';
+            let alpha = 0;
+            for (; alpha < Math.PI * 2 ; alpha += Math.PI/180) {
+                
+                if (alpha != 0) {
+                    lineStr += 'L ';
+                }
+
+                lineStr += `${x} ${Math.cos(alpha)*r} ${Math.sin(alpha)*r} `
+                
+            }
+            lineStr += 'z';
+
+            Builder
+            .drawLine(lineStr)
+            .setLineStroke('rgb(143, 221, 195)')
+            
+        }
+
+        const drawCircle1 = (y, r) => {
+            let lineStr = 'M ';
+            let alpha = 0;
+            for (; alpha < Math.PI * 2 ; alpha += Math.PI/180) {
+                
+                if (alpha != 0) {
+                    lineStr += 'L ';
+                }
+
+                lineStr += `${Math.cos(alpha)*r} ${y} ${Math.sin(alpha)*r} `
+                
+            }
+            lineStr += 'z';
+
+            Builder
+            .drawLine(lineStr)
+            .setLineStroke('rgb(143, 221, 195)')
+            
+        }
+
+        const drawCircle2 = (r, alpha) => {
+
+            let lineStr = 'M ';
+            let beta = 0;
+            for (; beta < Math.PI * 2 ; beta += Math.PI/180) {
+                
+                if (beta != 0) {
+                    lineStr += 'L ';
+                }
+
+                lineStr += `${Math.cos(alpha)*Math.abs(r*Math.cos(beta))} ${r*Math.sin(beta)} ${Math.sin(alpha)*Math.abs(r*Math.cos(beta))} `
+                
+            }
+            lineStr += 'z';
+
+            Builder
+            .drawLine(lineStr)
+            .setLineStroke('rgb(143, 221, 195)')
+
+        }
+
+        Builder
+        .reset()
+        .select('#space')
+        .setScreen({ratio: 0.99, offsetX: this.state.screenWidth/2, offsetY: this.state.screenHeight/2.5})
+        .setCamera({anchor: [0, 0, 0]})
+
+        let k = 0;
+
+        for (; k < 100; k += 20) {
+            // drawCircle0(k, Math.sqrt(100*100 - k*k));
+            // drawCircle0(-k, Math.sqrt(100*100 - k*k));
+            drawCircle1(k, Math.sqrt(100*100 - k*k));
+            drawCircle1(-k, Math.sqrt(100*100 - k*k));
+        }
+
+        let alpha = 0 ;
+
+        for (; alpha < Math.PI*2; alpha += Math.PI/18) {
+            drawCircle2(100, alpha);
+        }
+
+        Builder.action();
+
+
+
+    }
 
     drawLine () {
 
@@ -180,8 +283,6 @@ class App extends Component {
 
     drawBezierSurfaceAnimation () {
 
-        // this.globalInterval = 
-
         this.setState({
             alpha: Math.PI/ 6,
             beta: 0,
@@ -247,8 +348,6 @@ class App extends Component {
 
     componentDidMount () {
 
-        // this.drawCube();
-
         this.drawBezierSurface()
 
     }
@@ -295,6 +394,10 @@ class App extends Component {
                             if (e.key == 'line') {
                                 this.drawLine.call(this);
                             }
+
+                            if (e.key == 'sphere') {
+                                this.drawSphere.call(this);
+                            }
                         }}
                         selectedKeys={this.state.selectedKey}
                         mode="horizontal"
@@ -308,6 +411,9 @@ class App extends Component {
                         </Menu.Item>
                         <Menu.Item key="bezier-curve">
                             Bezier Curve
+                        </Menu.Item>
+                        <Menu.Item key="sphere">
+                            Sphere
                         </Menu.Item>
                         <Menu.Item key="line">
                             Line
