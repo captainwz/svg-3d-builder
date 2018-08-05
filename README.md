@@ -1,8 +1,6 @@
 # SVG 3D Builder
 
-<div align=center style="height: 100px">
-    <img  src="https://raw.githubusercontent.com/captainwz/svg-3d-builder/master/demo.gif" />
-</div>
+![demo](https://raw.githubusercontent.com/captainwz/svg-3d-builder/master/demo.gif)
 
 This framewrok aims at creating 3d models with **SVG** and concise APIs. It is purely developed with concepts of two-dimension.
 One of its essential implementations is **Bezier** in both curve and surface. 
