@@ -54,9 +54,37 @@ d|String|path attribute|true||
 
 ---
 
+Set color of a line.
+
+```javascript
+.setLineStroke(color, index)
+```
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+color|String|color of the line|true||
+index|Number|index of the line. If not set, the latest line will be painted|false||
+
+---
+
+Draw a bezier curve. The framework uses four control points to describe a [bezier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve).
+
+```javascript
+.drawBezierCurve(p0, p1, p2, p3, n)
+```
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-:
+p0| Array| control point| true| | 
+p1| Array| control point| true| | 
+p2| Array| control point| true| | 
+p3| Array| control point| true| | 
+n| Number| Number of points to calculate. The curve will be smoother as `n` is larger| true| | 
+
+
+---
+
 clean the graph and reset all setting options. 
 
-```
+```javascript
 .reset()
 ```
 
