@@ -3,10 +3,19 @@
 Some 3d concepts are prerequisite. The related links will be attached in the followings.
 
 ---
+```javascript
+.select(selector)
+```
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+selector|String|svg element selector|true||
+
+
+---
 
 This framework is using [perspective projection](https://en.wikipedia.org/wiki/3D_projection) to map three-dimensional points into the two-dimensional graph. In `perspective projection`, we need to locate the **sight point** (equivalent to a camera) . Any sight point can be specified with four elements: `anchor`, `d`, `alpha`, `beta`. 
 
-```
+```javascript
 .setCamera(opt)
 ```
 
@@ -21,9 +30,27 @@ beta| Number| image that the camera is rotating around the anchor. The track can
 
 In `perspective projection`, there is also a screen. 
 
-```
+```javascript
 .setCamera(opt)
 ```
+
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+ratio|Number|the ratio of the distance between the screen and the anchor to the distance between the camera and the anchor| false| 0.5
+offsetX| Number| x offset of the axis| false| 0 
+offsetY| Number| y offset of the axis| false| 0 
+
+---
+
+Draw a line.
+
+```javascript
+.drawLine(d)
+```
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+d|String|path attribute|true||
+
 
 ---
 
