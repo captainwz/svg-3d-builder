@@ -130,7 +130,7 @@ Redraw line.
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 d|String|path attribute|true||
-index|Number| index of the surface. Refer to the latest one if not set||
+index|Number| index of the surface. Refer to the latest one if not set|false|
 
 ---
 
@@ -147,7 +147,7 @@ p1| Array| control point| true| |
 p2| Array| control point| true| | 
 p3| Array| control point| true| | 
 n| Number| Number of points to calculate. The curve will be smoother as `n` is larger| true| | 
-index|Number| index of the surface. Refer to the latest one if not set||
+index|Number| index of the surface. Refer to the latest one if not set|false||
 
 ---
 
@@ -161,7 +161,7 @@ property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 matrix|Array|4*4 Array of control points|true||
 density|Number| density of the surface.|true||
-index|Number| index of the surface. Refer to the latest one if not set||
+index|Number| index of the surface. Refer to the latest one if not set|false||
 
 
 
