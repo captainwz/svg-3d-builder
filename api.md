@@ -13,11 +13,11 @@ selector|String|svg element selector|true||
 
 ---
 
-This framework is using [perspective projection](https://en.wikipedia.org/wiki/3D_projection) to map three-dimensional points into the two-dimensional graph. In `perspective projection`, we need to locate the **sight point** (equivalent to a camera) . Any sight point can be specified with four elements: `anchor`, `d`, `alpha`, `beta`. 
-
 ```javascript
 .setCamera({anchor, d, alpha, beta})
 ```
+
+This framework is using [perspective projection](https://en.wikipedia.org/wiki/3D_projection) to map three-dimensional points into the two-dimensional graph. In `perspective projection`, we need to locate the **sight point** (equivalent to a camera) . Any sight point can be specified with four elements: `anchor`, `d`, `alpha`, `beta`. 
 
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
@@ -28,11 +28,11 @@ beta| Number| image that the camera is rotating around the anchor. The track can
 
 ---
 
-In `perspective projection`, there is also a screen. 
-
 ```javascript
 .setCamera({ratio, offsetX, offsetY})
 ```
+
+In `perspective projection`, there is also a screen. 
 
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
@@ -42,11 +42,14 @@ offsetY| Number| y offset of the axis| false| 0
 
 ---
 
-Draw a line.
+
 
 ```javascript
 .drawLine(d)
 ```
+
+Draw a line.
+
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 d|String|path attribute|true||
@@ -54,11 +57,13 @@ d|String|path attribute|true||
 
 ---
 
-Set color of a line.
+
 
 ```javascript
 .setLineStroke(color, index)
 ```
+Set color of a line.
+
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 color|String|color of the line|true||
@@ -66,11 +71,14 @@ index|Number|index of the line. If not set, the latest line will be painted|fals
 
 ---
 
-Draw a bezier curve. The framework uses four control points to describe a [bezier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve).
+
 
 ```javascript
 .drawBezierCurve(p0, p1, p2, p3, n)
 ```
+
+Draw a bezier curve. The framework uses four control points to describe a [bezier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve).
+
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-:
 p0| Array| control point| true| | 
@@ -82,11 +90,14 @@ n| Number| Number of points to calculate. The curve will be smoother as `n` is l
 
 ---
 
-Set color of a bezier curve.
+
 
 ```javascript
 .setBezierCurveStroke(color, index)
 ```
+
+Set color of a bezier curve.
+
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 color|String|color of the bezier curve|true||
@@ -94,11 +105,11 @@ index|Number|index of the bezier curve. If not set, the latest bezier curve will
 
 ---
 
-Draw bezier surface. In this framework, a [bezier surface](https://en.wikipedia.org/wiki/B%C3%A9zier_surface) of 4*4 cotrol points is created because it is easy to be describe graphically based on [bezier triangle](graphically).
-
-```
+```javascript
 .drawBezierSurface(matrix, density)
 ```
+
+Draw bezier surface. In this framework, a [bezier surface](https://en.wikipedia.org/wiki/B%C3%A9zier_surface) of 4*4 cotrol points is created because it is easy to be describe graphically based on [bezier triangle](graphically).
 
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
@@ -107,11 +118,11 @@ density|Number| density of the surface. Surface will be smoother as density is l
 
 ---
 
-Re-draw bezier surface.
-
 ```javascript
-redrawBezierSurface(matrix, density, index)
+.redrawBezierSurface(matrix, density, index)
 ```
+
+Re-draw bezier surface.
 
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
@@ -121,10 +132,12 @@ index|Number| index of the surface. Refer to the latest one if not set||
 
 ---
 
-clean the graph and reset all setting options. 
+
 
 ```javascript
 .reset()
 ```
+
+clean the graph and reset all setting options. 
 
 ---
