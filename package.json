@@ -1,6 +1,6 @@
 {
   "name": "svg-3d-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "3d"
   ],
   "author": "captainwz",
-  "license": "MIT",
+  "license": "Apache",
   "devDependencies": {
     "antd-mobile": "^2.2.2",
     "babel-core": "^6.26.3",
