@@ -11,7 +11,7 @@ This framework is using [perspective projection](https://en.wikipedia.org/wiki/3
 ```
 
 property|type|description|required|default
-- | :-: | :-: |:-: | -: 
+-| :-: | :-: |:-: | -: 
 anchor|Array|the camera always needs a focused point|false|[0, 0, 0]
 d| Number| the distance between the camera and the anchor| false| 300
 alpha| Number| image that the camera is rotating around the anchor. The track can be described as rotating `alpha` horizontally and `beta` vertically| false| 0
