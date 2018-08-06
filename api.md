@@ -126,6 +126,7 @@ index|Number|index of the bezier surface. If not set, the latest bezier surface 
 ```
 
 Redraw line.
+
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 d|String|path attribute|true||
