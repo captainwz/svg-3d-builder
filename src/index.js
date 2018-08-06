@@ -137,6 +137,16 @@ class Builder {
         return this;
     }
 
+    redrawLine (d, index) {
+        if (index == undefined) {
+            index = this.lineIndex;
+        }
+
+        this.lineList[index].originPath = d;
+
+        return this;
+    }
+
     drawBezierCurve (p0, p1, p2, p3, n) {
         this.bezierCurveList.push({
             ref: this.selector.append('path'),
@@ -151,6 +161,20 @@ class Builder {
 
         this.bezierCurveIndex = this.bezierCurveList.length - 1;
         
+        return this;
+    }
+
+    redrawBezierCurve (p0, p1, p2, p3, n, index) {
+        if (index == undefined) {
+            index = this.bezierCurveIndex;
+        }
+
+        this.bezierCurveList[index].p0 = p0;
+        this.bezierCurveList[index].p1 = p1;
+        this.bezierCurveList[index].p2 = p2;
+        this.bezierCurveList[index].p3 = p3;
+        this.bezierCurveList[index].n = n;
+
         return this;
     }
 

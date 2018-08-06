@@ -29,7 +29,7 @@ beta| Number| image that the camera is rotating around the anchor. The track can
 ---
 
 ```javascript
-.setCamera({ratio, offsetX, offsetY})
+.setScreen({ratio, offsetX, offsetY})
 ```
 
 In `perspective projection`, there is also a screen. 
@@ -42,8 +42,6 @@ offsetY| Number| y offset of the axis| false| 0
 
 ---
 
-
-
 ```javascript
 .drawLine(d)
 ```
@@ -54,24 +52,7 @@ property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
 d|String|path attribute|true||
 
-
 ---
-
-
-
-```javascript
-.setLineStroke(color, index)
-```
-Set color of a line.
-
-property|type|description|required|default
-:-:| :-: | :-: |:-: | :-: 
-color|String|color of the line|true||
-index|Number|index of the line. If not set, the latest line will be painted|false||
-
----
-
-
 
 ```javascript
 .drawBezierCurve(p0, p1, p2, p3, n)
@@ -86,22 +67,6 @@ p1| Array| control point| true| |
 p2| Array| control point| true| | 
 p3| Array| control point| true| | 
 n| Number| Number of points to calculate. The curve will be smoother as `n` is larger| true| | 
-
-
----
-
-
-
-```javascript
-.setBezierCurveStroke(color, index)
-```
-
-Set color of a bezier curve.
-
-property|type|description|required|default
-:-:| :-: | :-: |:-: | :-: 
-color|String|color of the bezier curve|true||
-index|Number|index of the bezier curve. If not set, the latest bezier curve will be painted|false||
 
 ---
 
@@ -119,10 +84,77 @@ density|Number| density of the surface. Surface will be smoother as density is l
 ---
 
 ```javascript
+.setLineStroke(color, index)
+```
+Set color of a line.
+
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+color|String|color of the line|true||
+index|Number|index of the line. If not set, the latest line will be painted|false||
+
+---
+
+```javascript
+.setBezierCurveStroke(color, index)
+```
+
+Set color of a bezier curve.
+
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+color|String|color of the bezier curve|true||
+index|Number|index of the bezier curve. If not set, the latest bezier curve will be painted|false||
+
+---
+
+```javascript
+.setBezierSurfaceStroke(color, index)
+```
+
+Set color of a bezier surface.
+
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+color|String|color of the bezier surface|true||
+index|Number|index of the bezier surface. If not set, the latest bezier surface will be painted|false||
+
+---
+
+```javascript
+.redrawLine(d, index)
+```
+
+Redraw line.
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+d|String|path attribute|true||
+index|Number| index of the surface. Refer to the latest one if not set||
+
+---
+
+```javascript
+.redrawBezierCurve(p0, p1, p2, p3, n, index)
+```
+
+Redraw bezier curve.
+
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+p0| Array| control point| true| | 
+p1| Array| control point| true| | 
+p2| Array| control point| true| | 
+p3| Array| control point| true| | 
+n| Number| Number of points to calculate. The curve will be smoother as `n` is larger| true| | 
+index|Number| index of the surface. Refer to the latest one if not set||
+
+---
+
+```javascript
 .redrawBezierSurface(matrix, density, index)
 ```
 
-Re-draw bezier surface.
+Redraw bezier surface.
 
 property|type|description|required|default
 :-:| :-: | :-: |:-: | :-: 
@@ -130,14 +162,21 @@ matrix|Array|4*4 Array of control points|true||
 density|Number| density of the surface.|true||
 index|Number| index of the surface. Refer to the latest one if not set||
 
+
+
 ---
 
+```javascript
+.action()
+```
+Draw the graph.
 
+---
 
 ```javascript
 .reset()
 ```
 
-clean the graph and reset all setting options. 
+Clean the graph and reset all setting options. 
 
 ---
