@@ -1,6 +1,6 @@
 # SVG 3D Builder
 
-![](https://libcafe.com/3d/animation.gif)
+![gif](https://libcafe.com/3d/animation.gif)
 
 This framewrok aims at creating 3d models with **SVG** and concise APIs. It is purely developed with concepts of two-dimension.
 One of its essential implementations is **Bezier** in both curve and surface. 
