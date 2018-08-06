@@ -43,7 +43,7 @@ Builder
 To create more sophisticated model, you need to look up the [API document](https://github.com/captainwz/svg-3d-builder/tree/master/api.md).
 
 ## Lisence
-Apache
+Apache
 
 
 
