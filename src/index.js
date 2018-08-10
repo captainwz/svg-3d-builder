@@ -24,6 +24,18 @@ class Builder {
                 ratio: 0.5,
                 offsetX: 0,
                 offsetY: 0
+            },
+            axis: {
+                show: false,
+                xLength: 200,
+                xColor: '#000',
+                yLength: 200,
+                yColor: '#000',
+                zLength: 200,
+                zColor: '#000',
+                xRef: null,
+                yRef: null,
+                zRef: null
             }
         })
 
@@ -54,6 +66,18 @@ class Builder {
                 ratio: 0.5,
                 offsetX: 0,
                 offsetY: 0
+            },
+            axis: {
+                show: false,
+                xLength: 200,
+                xColor: '#000',
+                yLength: 200,
+                yColor: '#000',
+                zLength: 200,
+                zColor: '#000',
+                xRef: null,
+                yRef: null,
+                zRef: null
             }
         })
 
@@ -110,6 +134,39 @@ class Builder {
         }
 
         this.selector.attr('transform', `translate(${offsetX}, ${offsetY})`)
+
+        return this;
+    }
+
+    setAxis (opt) {
+
+        if (!opt) {
+            opt = {}
+        }
+
+        const {
+            show = this.axis.show,
+            xLength = this.axis.xLength,
+            xColor = this.axis.xColor,
+            yLength = this.axis.yLength,
+            yColor = this.axis.yColor,
+            zLength = this.axis.zLength,
+            zColor = this.axis.zColor,
+
+        } = opt;
+
+        this.axis = {
+            show,
+            xLength,
+            xColor,
+            yLength,
+            yColor,
+            zLength,
+            zColor,
+            xRef: this.axis.xRef ? this.axis.xRef : this.selector.append('path'),
+            yRef: this.axis.yRef ? this.axis.yRef : this.selector.append('path'),
+            zRef: this.axis.zRef ? this.axis.zRef : this.selector.append('path')
+        }
 
         return this;
     }
@@ -234,6 +291,43 @@ class Builder {
     action () {
         let camera = this.camera;
         let screen = this.screen;
+
+        if (this.axis.show) {
+
+            if (this.axis.xRef) {
+                let d = `M 0 0 0 L ${this.axis.xLength} 0 0 M ${this.axis.xLength} 0 0 l -5  5 0 M ${this.axis.xLength} 0 0 l -5 -5 0`;
+                this
+                .axis
+                .xRef
+                .transition()
+                .attr('d', getLinePath(d, camera.anchor, camera.d, camera.alpha, camera.beta, screen.ratio))
+                .attr('stroke', this.axis.xColor)
+                .attr('fill', 'transparent')
+            }
+
+            if (this.axis.yRef) {
+                let d = `M 0 0 0 L 0 ${this.axis.yLength} 0 M  0 ${this.axis.yLength} 0 l 5  -5 0 M 0 ${this.axis.yLength} 0  l -5 -5 0`;
+                this
+                .axis
+                .yRef
+                .transition()
+                .attr('d', getLinePath(d, camera.anchor, camera.d, camera.alpha, camera.beta, screen.ratio))
+                .attr('stroke', this.axis.yColor)
+                .attr('fill', 'transparent')
+            }
+
+            if (this.axis.zRef) {
+                let d = `M 0 0 0 L 0 0 ${this.axis.zLength} M  0 0 ${this.axis.zLength} l 5  0 -5 M 0 0 ${this.axis.zLength} l -5 0 -5`;
+                this
+                .axis
+                .zRef
+                .transition()
+                .attr('d', getLinePath(d, camera.anchor, camera.d, camera.alpha, camera.beta, screen.ratio))
+                .attr('stroke', this.axis.zColor)
+                .attr('fill', 'transparent')
+            }
+
+        }
 
         this.lineList.forEach((path, k) => {
             

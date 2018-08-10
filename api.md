@@ -43,6 +43,24 @@ offsetY| Number| y offset of the axis| false| 0
 ---
 
 ```javascript
+.setAxis({show, xLength, xColor, yLength, yColor, zLength, zColor})
+```
+
+Set axis.
+
+property|type|description|required|default
+:-:| :-: | :-: |:-: | :-: 
+show|Boolean|if show axis|false|false
+xLength|Number|how long is x-axis displayed|false|200
+xColor|String|what color is x-axis displayed|false|'#000'
+yLength|Number|how long is y-axis displayed|false|200
+yColor|String|what color is y-axis displayed|false|'#000'
+zLength|Number|how long is z-axis displayed|false|200
+zColor|String|what color is z-axis displayed|false|'#000'
+
+---
+
+```javascript
 .drawLine(d)
 ```
 
