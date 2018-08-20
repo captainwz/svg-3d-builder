@@ -1,5 +1,6 @@
 # SVG 3D Builder
 
+![gif](https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif)
 ![gif](https://media.giphy.com/media/9Jga63YdBYmsL2dPDP/giphy.gif)
 
 This framewrok aims at creating 3d models with **SVG** and concise APIs. It is purely developed with concepts of two-dimension.

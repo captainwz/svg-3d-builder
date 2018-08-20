@@ -1,5 +1,11 @@
 import * as d3 from 'd3';
-import {getLinePath, getBezierCurvePath, getBezierSurfacePath} from './util';
+import {
+    getLinePath, 
+    getBezierCurvePath, 
+    getBezierSurfacePath, 
+    getBezierTrianglePath,
+    getCameraPoint
+} from './util';
 
 class Builder {
     
@@ -8,12 +14,15 @@ class Builder {
         Object.assign(this, {
             svg: null,
             selector: null,
+            bezierSurfaceGroup: null,
             lineList: [],
             lineIndex: null,
             bezierCurveList: [],
             bezierCurveIndex: null,
             bezierSurfaceList: [],
             bezierSurfaceIndex: null,
+            bezierTriangleList: [],
+            bezierTriangleIndex: null,
             camera: {
                 anchor: [0, 0, 0],
                 d: 300,
@@ -50,12 +59,15 @@ class Builder {
         Object.assign(this, {
             svg: null,
             selector: null,
+            bezierSurfaceGroup: null,
             lineList: [],
             lineIndex: null,
             bezierCurveList: [],
             bezierCurveIndex: null,
             bezierSurfaceList: [],
             bezierSurfaceIndex: null,
+            bezierTriangleList: [],
+            bezierTriangleIndex: null,
             camera: {
                 anchor: [0, 0, 0],
                 d: 300,
@@ -176,6 +188,7 @@ class Builder {
     select (selector) {
         this.svg = d3.select(selector);
         this.selector = this.svg.append('g');
+        this.bezierSurfaceGroup = this.selector.append('g');
             
         return this;
     }
@@ -241,6 +254,7 @@ class Builder {
             matrix,
             density,
             stroke: '#000',
+            strokeWidth: 0.5,
             fill: 'transparent'
         })
 
@@ -256,6 +270,32 @@ class Builder {
 
         this.bezierSurfaceList[index].matrix = matrix;
         this.bezierSurfaceList[index].density = density;
+
+        return this;
+    }
+
+    drawBezierTriangle (control, density) {
+
+        this.bezierTriangleList.push({
+            control,
+            density,
+            stroke: '#000',
+            strokeWidth: 0.5,
+            fill: 'transparent'
+        })
+
+        this.bezierTriangleIndex = this.bezierTriangleList.length - 1;
+        return this;
+
+    }
+
+    redrawBezierTriangle (control, density, index) {
+        if (index == undefined) {
+            index = this.bezierTriangleIndex;
+        }
+
+        this.bezierTriangleList[index].control = control;
+        this.bezierTriangleList[index].density = density;
 
         return this;
     }
@@ -285,6 +325,49 @@ class Builder {
         }
 
         this.bezierSurfaceList[index].stroke = color;
+        return this;
+    }
+
+    setBezierTriangleStroke (color, index) {
+        if (index == undefined) {
+            index = this.bezierTriangleIndex;
+        }
+
+        this.bezierTriangleList[index].stroke = color;
+        return this;
+    }
+
+    setBezierSurfaceStrokeWidth (width, index) {
+        if (index == undefined) {
+            index = this.bezierSurfaceIndex;
+        }
+
+        this.bezierSurfaceList[index].strokeWidth = width;
+        return this;
+    }
+
+    setBezierTriangleStrokeWidth (width, index) {
+        if (index == undefined) {
+            index = this.bezierTriangleIndex;
+        }
+        this.bezierTriangleList[index].strokeWidth = width;
+        return this;
+    }
+
+    setBezierSurfaceFill (color, index) {
+        if (index == undefined) {
+            index = this.bezierSurfaceIndex;
+        }
+
+        this.bezierSurfaceList[index].fill = color;
+        return this;
+    }
+
+    setBezierTriangleFill (color, index) {
+        if (index == undefined) {
+            index = this.bezierTriangleIndex;
+        }
+        this.bezierTriangleList[index].fill = color;
         return this;
     }
 
@@ -339,6 +422,7 @@ class Builder {
             .attr('fill', path.fill)
         })
 
+
         this.bezierCurveList.forEach((path, k) => {
 
             path
@@ -350,14 +434,74 @@ class Builder {
 
         })
 
+        this.bezierSurfaceGroup.selectAll('*').remove();
+
+        let arr = [];
+
         this.bezierSurfaceList.forEach((path, k) => {
 
+            let a = getBezierSurfacePath(path.matrix, path.density, camera.anchor, camera.d, camera.alpha, camera.beta, screen.ratio);
+
+            a = a.map(item => {
+                return Object.assign(item, {
+                    stroke: path.stroke,
+                    fill: path.fill,
+                    strokeWidth: path.strokeWidth
+                })
+            });
+
+            arr = arr.concat(a);
+            
+            /*
             path
             .ref
             .transition()
             .attr('d', getBezierSurfacePath(path.matrix, path.density, camera.anchor, camera.d, camera.alpha, camera.beta, screen.ratio))
             .attr('stroke', path.stroke)
-            .attr('fill', path.fill)
+            .attr('fill', path.fill)*/
+
+        })
+
+        this.bezierTriangleList.forEach((triangle, k) => {
+            let a = getBezierTrianglePath(triangle.control, triangle.density, camera.anchor, camera.d, camera.alpha, camera.beta, screen.ratio);
+
+            a = a.map(item => {
+                return Object.assign(item, {
+                    stroke: triangle.stroke,
+                    fill: triangle.fill,
+                    strokeWidth: triangle.strokeWidth
+                })
+            });
+
+            arr = arr.concat(a);
+        })
+
+        let cameraPoint = getCameraPoint(camera.anchor, camera.d, camera.alpha, camera.beta)
+
+        arr.sort((aa, bb) => {
+            let a = aa.center;
+            let b = bb.center;
+
+            const x = cameraPoint[0];
+            const y = cameraPoint[1];
+            const z = cameraPoint[2];
+            const adx = (a[0] - x)*(a[0] - x);
+            const ady = (a[1] - y)*(a[1] - y);
+            const adz = (a[2] - z)*(a[2] - z);
+            const bdx = (b[0] - x)*(b[0] - x);
+            const bdy = (b[1] - y)*(b[1] - y);
+            const bdz = (b[2] - z)*(b[2] - z);
+
+            return (adx + ady + adz) < (bdx + bdy + bdz)
+
+        }).forEach(item => {
+            this
+            .bezierSurfaceGroup
+            .append('path')
+            .attr('d', item.d)
+            .attr('stroke', item.stroke)
+            .attr('stroke-width', item.strokeWidth)
+            .attr('fill', item.fill)
 
         })
 

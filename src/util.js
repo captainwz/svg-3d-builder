@@ -1,3 +1,19 @@
+export function getCameraPoint (anchor, d, alpha, beta) {
+    const ax = anchor[0]; // anchor x
+    const ay = anchor[1]; // anchor y
+    const az = anchor[2]; // anchor z
+
+    let dx = d*Math.cos(beta)*Math.sin(alpha);
+    let dy = d*Math.sin(beta);
+    let dz = d*Math.cos(alpha)*Math.cos(beta);
+
+    return [
+        ax + dx,
+        ay + dy,
+        az + dz
+    ]
+}
+
 export function getProjection (anchor, d, alpha, beta, ratio, origin) {
     const ax = anchor[0]; // anchor x
     const ay = anchor[1]; // anchor y
@@ -324,31 +340,39 @@ function getOneNewControl (control) {
     ]
 
     // a2b' = 1/2*a3 + 1/2*a2b, b <-> y 
-    newControl.a2y = [
+    newControl.a2b = [
         1/2*a3[0] + 1/2*a2b[0],
         1/2*a3[1] + 1/2*a2b[1],
         1/2*a3[2] + 1/2*a2b[2]
     ]
 
     // ab2' = 1/4*a3 + 1/2*a2b + 1/4*ab2, b <-> y
-    newControl.ay2 = [
+    newControl.ab2 = [
         1/4*a3[0] + 1/2*a2b[0] + 1/4*ab2[0],
         1/4*a3[1] + 1/2*a2b[1] + 1/4*ab2[1],
         1/4*a3[2] + 1/2*a2b[2] + 1/4*ab2[2]
     ]
+    // newControl.ab2 = [
+    //     1/2*a2b[0] + 1/2*ab2[0],
+    //     1/2*a2b[1] + 1/2*ab2[1],
+    //     1/2*a2b[2] + 1/2*ab2[2]
+    // ]
 
 
     // b3 = 1/8*a3 + 3/8*a2b + 3/8*ab2 + 1/8*b3, b <-> y
-    newControl.y3 = [
+    newControl.b3 = [
         1/8*a3[0] + 3/8*a2b[0] + 3/8*ab2[0] + 1/8*b3[0],
         1/8*a3[1] + 3/8*a2b[1] + 3/8*ab2[1] + 1/8*b3[1],
         1/8*a3[2] + 3/8*a2b[2] + 3/8*ab2[2] + 1/8*b3[2]
     ]
-
-    
+    // newControl.b3 = [
+    //     1/2*ab2[0] + 1/2*b3[0],
+    //     1/2*ab2[1] + 1/2*b3[1],
+    //     1/2*ab2[2] + 1/2*b3[2]
+    // ];
 
     // a2y = a2y, b <-> y
-    newControl.a2b  = [
+    newControl.a2y  = [
         a2y[0],
         a2y[1],
         a2y[2]
@@ -362,34 +386,52 @@ function getOneNewControl (control) {
     ]
 
     // b2y = 1/4*a2y + 1/2*aby + 1/4*b2y, b <-> y
-    newControl.by2 = [
+    newControl.b2y = [
         1/4*a2y[0] + 1/2*aby[0] + 1/4*b2y[0],
         1/4*a2y[1] + 1/2*aby[1] + 1/4*b2y[1],
         1/4*a2y[2] + 1/2*aby[2] + 1/4*b2y[2]
     ]
+    // newControl.b2y = [
+    //     1/2*aby[0] + 1/2*b2y[0],
+    //     1/2*aby[1] + 1/2*b2y[1],
+    //     1/2*aby[2] + 1/2*b2y[2]
+    // ]
 
     // ay2 = ay2, b <-> y
-    newControl.ab2 = [
+    newControl.ay2 = [
         ay2[0],
         ay2[1],
         ay2[2]
     ]
 
     // by2 = 1/2*ay2 + 1/2*by2, b <-> y
-    newControl.b2y = [
+    newControl.by2 = [
         1/2*ay2[0] + 1/2*by2[0],
         1/2*ay2[1] + 1/2*by2[1],
         1/2*ay2[2] + 1/2*by2[2]
     ]
 
     // y3 = y3, b <-> y
-    newControl.b3 = [
+    newControl.y3 = [
         y3[0],
         y3[1],
         y3[2]
     ]
 
-    return newControl;
+    let tcontrl = {
+        a3: newControl.y3, 
+        a2b: newControl.ay2, 
+        ab2: newControl.a2y, 
+        b3: newControl.a3, 
+        a2y: newControl.by2, 
+        aby: newControl.aby, 
+        b2y: newControl.a2b, 
+        ay2: newControl.b2y, 
+        by2: newControl.ab2, 
+        y3: newControl.b3
+    }
+
+    return tcontrl;
     
 }
 
@@ -414,6 +456,8 @@ function getTwoNewControls (control) {
 export function getBezierSurfacePath (matrix, density, anchor, d, alpha, beta, ratio) {
 
     let str = '';
+
+    let arr = [];
 
     const recursiveTime = density;
 
@@ -446,6 +490,15 @@ export function getBezierSurfacePath (matrix, density, anchor, d, alpha, beta, r
 
             str += strArr.join(' ') + ' ';
 
+            arr.push({
+                d: strArr.join(' '),
+                center: [
+                    (control1.a3[0] + control1.b3[0] + control1.y3[0])/3,
+                    (control1.a3[1] + control1.b3[1] + control1.y3[1])/3,
+                    (control1.a3[2] + control1.b3[2] + control1.y3[2])/3,
+                ]
+            })
+
             strArr = [];
 
             strArr.push('M');
@@ -463,9 +516,20 @@ export function getBezierSurfacePath (matrix, density, anchor, d, alpha, beta, r
             strArr.push(ret.x);
             strArr.push(ret.y);
 
-            // strArr.push('Z');
 
             str += strArr.join(' ') + ' ';
+
+            strArr.push('Z');
+            
+
+            arr.push({
+                d: strArr.join(' '),
+                center: [
+                    (control2.a3[0] + control2.b3[0] + control2.y3[0])/3,
+                    (control2.a3[1] + control2.b3[1] + control2.y3[1])/3,
+                    (control2.a3[2] + control2.b3[2] + control2.y3[2])/3,
+                ]
+            })
 
         } else {
 
@@ -505,5 +569,90 @@ export function getBezierSurfacePath (matrix, density, anchor, d, alpha, beta, r
 
     possibleDraw(control2, 0);
 
-    return str;
+
+    return arr;
+}
+
+export function getBezierTrianglePath (control, density, anchor, d, alpha, beta, ratio) {
+    
+    let arr = [];
+
+    const recursiveTime = density;
+
+    const possibleDraw = (control, n) => {
+
+        let controls = getTwoNewControls(control);
+        let control1 = controls[0];
+        let control2 = controls[1];
+
+        if (n == recursiveTime) {
+
+            let strArr = [], ret;
+
+            strArr.push('M');
+            ret = getProjection(anchor, d, alpha, beta, ratio, control1.a3);
+            strArr.push(ret.x);
+            strArr.push(ret.y);
+
+            strArr.push('L');
+            ret = getProjection(anchor, d, alpha, beta, ratio, control1.b3);
+            strArr.push(ret.x);
+            strArr.push(ret.y);
+
+            strArr.push('L');
+            ret = getProjection(anchor, d, alpha, beta, ratio, control1.y3);
+            strArr.push(ret.x);
+            strArr.push(ret.y);
+
+            strArr.push('Z');
+
+            arr.push({
+                d: strArr.join(' '),
+                center: [
+                    (control1.a3[0] + control1.b3[0] + control1.y3[0])/3,
+                    (control1.a3[1] + control1.b3[1] + control1.y3[1])/3,
+                    (control1.a3[2] + control1.b3[2] + control1.y3[2])/3,
+                ]
+            })
+
+            strArr = [];
+
+            strArr.push('M');
+            ret = getProjection(anchor, d, alpha, beta, ratio, control2.b3);
+            strArr.push(ret.x);
+            strArr.push(ret.y);
+
+            strArr.push('L');
+            ret = getProjection(anchor, d, alpha, beta, ratio, control2.a3);
+            strArr.push(ret.x);
+            strArr.push(ret.y);
+
+            strArr.push('L');
+            ret = getProjection(anchor, d, alpha, beta, ratio, control2.y3);
+            strArr.push(ret.x);
+            strArr.push(ret.y);
+
+            strArr.push('Z');
+            
+            arr.push({
+                d: strArr.join(' '),
+                center: [
+                    (control2.a3[0] + control2.b3[0] + control2.y3[0])/3,
+                    (control2.a3[1] + control2.b3[1] + control2.y3[1])/3,
+                    (control2.a3[2] + control2.b3[2] + control2.y3[2])/3,
+                ]
+            })
+
+        } else {
+
+            possibleDraw(control1, n + 1);
+            possibleDraw(control2, n + 1);
+        }
+
+    }
+
+    possibleDraw(control, 0);
+    
+    return arr;
+
 }

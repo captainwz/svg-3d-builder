@@ -23,7 +23,7 @@ class App extends Component {
             rightActive: false,
             downInt: null,
             downActive: false,
-            selectedKey: 'bezier-surface'
+            selectedKey: 'chromatic-3d'
         }
     }
     
@@ -107,7 +107,7 @@ class App extends Component {
         .reset()
         .select('#space')
         .setScreen({ratio: 0.99, offsetX: this.state.screenWidth/2, offsetY: this.state.screenHeight/2.5})
-        .setCamera({anchor: [0, 0, 0]})
+        .setCamera({anchor: [0, 0, 0], d: 10000})
 
         let k = 0;
 
@@ -216,7 +216,7 @@ class App extends Component {
     }
 
     up () {
-        this.state.beta += Math.PI/180;
+        this.state.beta += Math.PI/90;
 
         Builder
         .setCamera({beta: this.state.beta})
@@ -224,7 +224,7 @@ class App extends Component {
     }
 
     down () {
-        this.state.beta -= Math.PI/180;
+        this.state.beta -= Math.PI/90;
 
         Builder
         .setCamera({beta: this.state.beta})
@@ -232,7 +232,7 @@ class App extends Component {
     }
 
     left () {
-        this.state.alpha += Math.PI/180;
+        this.state.alpha -= Math.PI/90;
 
         Builder
         .setCamera({alpha: this.state.alpha})
@@ -240,7 +240,7 @@ class App extends Component {
     }
 
     right () {
-        this.state.alpha -= Math.PI/180;
+        this.state.alpha += Math.PI/90;
 
         Builder
         .setCamera({alpha: this.state.alpha})
@@ -250,7 +250,7 @@ class App extends Component {
     drawBezierSurface () {
 
         this.setState({
-            alpha: 0,
+            alpha: Math.PI/6,
             beta: 0,
             upInt: null,
             upActive: false,
@@ -265,8 +265,17 @@ class App extends Component {
         Builder
         .reset()
         .select('#space')
-        .setCamera({anchor: [100, 100, 0]})
+        .setCamera({anchor: [100, 100, 0], alpha: Math.PI/6})
         .setScreen({ratio: 0.99, offsetX: this.state.screenWidth/2, offsetY: this.state.screenHeight/2.5})
+        .setAxis({
+            show: true,
+            xLength: 260,
+            xColor: '#108ee9',
+            yLength: 260,
+            yColor: '#108ee9',
+            zLength: 200,
+            zColor: '#108ee9'
+        })
         .drawBezierSurface(
             [
                 [[0,0,0], [25, 30, 50], [75, 78, 50], [200, 0, 0]],
@@ -346,9 +355,93 @@ class App extends Component {
 
     }
 
+    drawChromatic3D () {
+
+        this.setState({
+            alpha: 0,
+            beta: 0,
+            upInt: null,
+            upActive: false,
+            leftInt: null,
+            leftActive: false,
+            rightInt: null,
+            rightActive: false,
+            downInt: null,
+            downActive: false
+        })
+
+        Builder
+        .reset()
+        .select('#space')
+        .setCamera({anchor: [0, 30, 0], d: 1000000000})
+        .setScreen({ratio: 0.99, offsetX: this.state.screenWidth/2, offsetY: this.state.screenHeight/2.5})
+        .drawBezierTriangle({
+            a3: [-100, -100, 0],
+            a2b: [-30, -120, 0],
+            ab2: [-20, -90, 0],
+            b3: [0, -30, 0],
+            b2y: [0, 30, 60],
+            by2: [0, 60, 60],
+            y3: [0, 200, 0],
+            a2y: [-230, -50, 0],
+            ay2: [-200, 30, 0],
+            aby: [-30, 30, 100]
+        }, 9)
+        .setBezierTriangleFill('#ff756a')
+        .setBezierTriangleStroke('#fdd6a6')
+        .setBezierTriangleStrokeWidth(0.1)
+        .drawBezierTriangle({
+            a3: [100, -100, 0],
+            a2b: [30, -120, 0],
+            ab2: [20, -90, 0],
+            b3: [0, -30, 0],
+            b2y: [0, 30, 60],
+            by2: [0, 60, 60],
+            y3: [0, 200, 0],
+            a2y: [230, -50, 0],
+            ay2: [200, 30, 0],
+            aby: [30, 30, 100]
+        }, 9)
+        .setBezierTriangleFill('#ff756a')
+        .setBezierTriangleStroke('#fdd6a6')
+        .setBezierTriangleStrokeWidth(0.1)
+        .drawBezierTriangle({
+            a3: [-100, -100, 0],
+            a2b: [-30, -120, 0],
+            ab2: [-20, -90, 0],
+            b3: [0, -30, 0],
+            b2y: [0, 30, -60],
+            by2: [0, 60, -60],
+            y3: [0, 200, 0],
+            a2y: [-230, -50, 0],
+            ay2: [-200, 30, 0],
+            aby: [-30, 30, -100]
+        }, 9)
+        .setBezierTriangleFill('#ffa69e')
+        .setBezierTriangleStroke('#ff798b')
+        .setBezierTriangleStrokeWidth(0.1)
+        .drawBezierTriangle({
+            a3: [100, -100, 0],
+            a2b: [30, -120, 0],
+            ab2: [20, -90, 0],
+            b3: [0, -30, 0],
+            b2y: [0, 30, -60],
+            by2: [0, 60, -60],
+            y3: [0, 200, 0],
+            a2y: [230, -50, 0],
+            ay2: [200, 30, 0],
+            aby: [30, 30, -100]
+        }, 9)
+        .setBezierTriangleFill('#ffa69e')
+        .setBezierTriangleStroke('#ff798b')
+        .setBezierTriangleStrokeWidth(0.1)
+        .action()
+
+    }
+
     componentDidMount () {
 
-        this.drawBezierSurface()
+        this.drawChromatic3D()
 
     }
 
@@ -375,6 +468,10 @@ class App extends Component {
 
                             clearInterval(this.globalInt);
 
+                            if (e.key == 'chromatic-3d') {
+                                this.drawChromatic3D.call(this);
+                            }
+                            
                             if (e.key == 'bezier-surface') {
                                 this.drawBezierSurface.call(this);
                             }
@@ -403,23 +500,26 @@ class App extends Component {
                         mode="horizontal"
                         theme="dark"
                     >
+                        <Menu.Item key="chromatic-3d">
+                            Chromatic 3D
+                        </Menu.Item>
                         <Menu.Item key="bezier-surface">
                             Bezier Surface
                         </Menu.Item>
                         <Menu.Item key="bezier-animation">
                             Bezier Surface Animation
                         </Menu.Item>
-                        <Menu.Item key="bezier-curve">
-                            Bezier Curve
+                        <Menu.Item key="cube">
+                            Cube
                         </Menu.Item>
                         <Menu.Item key="sphere">
                             Sphere
                         </Menu.Item>
+                        <Menu.Item key="bezier-curve">
+                            Bezier Curve
+                        </Menu.Item>
                         <Menu.Item key="line">
                             Line
-                        </Menu.Item>
-                        <Menu.Item key="cube">
-                            Cube
                         </Menu.Item>
                         <Menu.Item key="github">
                             <a href="https://github.com/captainwz/svg-3d-builder">
