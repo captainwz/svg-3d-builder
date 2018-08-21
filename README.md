@@ -1,6 +1,6 @@
 # SVG 3D Builder
 
-<div align=center>
+<div align=left>
     <img src="https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif" height="200" style="display:inline-block" align="center"/>
     <img src="https://media.giphy.com/media/1oFtOzT1JQQObvCDqC/giphy.gif" height="200" style="display:inline-block" align="center"/>
     <img src="https://media.giphy.com/media/LYuSClXbN76s0rQdIJ/giphy.gif" height="200" style="display:inline-block" align="center"/>
@@ -49,7 +49,7 @@ Builder
 
 
 ## API
-To create more sophisticated model, you need to look up the [API document](https://github.com/captainwz/svg-3d-builder/tree/master/api.md).
+You also need to look up the [API document](https://github.com/captainwz/svg-3d-builder/tree/master/api.md).
 
 ## Lisence
 Apache
