@@ -1,8 +1,8 @@
 # SVG 3D Builder
-<img src="https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif" height="200" style="display:inline-block" align="center"/>
-<img src="https://media.giphy.com/media/9Jga63YdBYmsL2dPDP/giphy.gif" height="200" style="display:inline-block" align="center"/>
-![gif](https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif)
-![gif](https://media.giphy.com/media/9Jga63YdBYmsL2dPDP/giphy.gif)
+<div align=center>
+    <img src="https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif" height="200" style="display:inline-block" align="center"/>
+    <img src="https://media.giphy.com/media/9Jga63YdBYmsL2dPDP/giphy.gif" height="200" style="display:inline-block" align="center"/>
+</div>
 
 This framewrok aims at creating 3d models with **SVG** and concise APIs. It is purely developed with concepts of two-dimension.
 One of its essential implementations is **Bezier** in both curve and surface. 
