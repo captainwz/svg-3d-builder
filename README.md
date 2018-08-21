@@ -1,12 +1,12 @@
 # SVG 3D Builder
 
+[![npm version](https://img.shields.io/npm/v/svg-3d-builder.svg?style=flat-square)](https://www.npmjs.com/package/svg-3d-builder)
+
 <div align=left>
     <img src="https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif" height="200" style="display:inline-block" align="center"/>
     <img src="https://media.giphy.com/media/1oFtOzT1JQQObvCDqC/giphy.gif" height="200" style="display:inline-block" align="center"/>
     <img src="https://media.giphy.com/media/LYuSClXbN76s0rQdIJ/giphy.gif" height="200" style="display:inline-block" align="center"/>
 </div>
-
-[![npm version](https://img.shields.io/npm/v/svg-3d-builder.svg?style=flat-square)](https://www.npmjs.com/package/svg-3d-builder)
 
 This framewrok aims at creating 3d models with **SVG** and concise APIs. It is purely developed with concepts of two-dimension.
 One of its essential implementations is **Bezier** in both curve and surface. 
