@@ -1,4 +1,6 @@
 # SVG 3D Builder
+[![npm version](https://img.shields.io/npm/v/svg-3d-builder.svg?style=flat-square)](https://www.npmjs.com/package/svg-3d-builder)
+
 <div align=center>
     <img src="https://media.giphy.com/media/5zvQqld4fwqoh3m3Nd/giphy.gif" height="200" style="display:inline-block" align="center"/>
     <img src="https://media.giphy.com/media/1oFtOzT1JQQObvCDqC/giphy.gif" height="200" style="display:inline-block" align="center"/>
@@ -41,6 +43,9 @@ Builder
 .drawLine('M 0 0 0 l 100 0 0')
 .action();
 ```
+
+**Of course you can see [code examples](https://github.com/captainwz/svg-3d-builder/tree/master/code_examples.md) before building sophisticated works by yourself.**
+
 
 ## API
 To create more sophisticated model, you need to look up the [API document](https://github.com/captainwz/svg-3d-builder/tree/master/api.md).
