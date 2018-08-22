@@ -8,14 +8,14 @@
     <img src="https://media.giphy.com/media/LYuSClXbN76s0rQdIJ/giphy.gif" height="200" style="display:inline-block" align="center"/>
 </div>
 
-This framewrok aims at creating 3d models with **SVG** and concise APIs. It is purely developed with concepts of two-dimension.
+This framework aims at creating 3d models with **SVG** and to provide a concise API. It is purely developed with concepts of two-dimensions.
 One of its essential implementations is **Bezier** in both curve and surface. 
-It is one thing to describe them with mathematic equotions, another thing to illustrate them with computer graph.
+It is one thing to describe them with mathematic equations, but another thing to illustrate them with computer graphics.
 
 See [online exhibition](https://libcafe.com/3d/index.html) developed by the framework and its [source code](https://github.com/captainwz/svg-3d-builder/tree/master/demo/exhibition).
 
 ## Start
-You can either start it in [tranditional way](https://github.com/captainwz/svg-3d-builder/blob/master/dist/svg-3d-builder.min.js)
+You can either start it in [traditional way](https://github.com/captainwz/svg-3d-builder/blob/master/dist/svg-3d-builder.min.js)
 ```html
 <script src="./svg-3d-builder.min.js"></script>
 ```
@@ -26,7 +26,7 @@ npm install --save svg-3d-builder
 ```javascript
 import Builder from 'svg-3d-builder';
 ```
-Make sure there is a svg element described in your document
+Make sure there is an svg element described in your document
 ```html
 <html>
     <head>
