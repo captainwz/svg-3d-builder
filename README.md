@@ -55,6 +55,6 @@ You also need to look up the [API document](https://github.com/captainwz/svg-3d-
 Apache
 
 ## Other
-[postscript](https://libcafe.com/2018/08/25/something-about-svg-3d-builder/)
+[postscript](https://libcafe.com/2018/08/25/3d-builder/)
 
 
