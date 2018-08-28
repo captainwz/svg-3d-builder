@@ -10,7 +10,7 @@
 
 This framework aims at creating 3d models with **SVG** and to provide a concise API. It is purely developed with concepts of two-dimensions.
 One of its essential implementations is **Bezier** in both curve and surface. 
-It is one thing to describe them with mathematic equations, but another thing to illustrate them with computer graphics.
+It is one thing to describe them with mathematical equations, but another thing to illustrate them with computer graphics.
 
 See [online exhibition](https://libcafe.com/3d/index.html) developed by the framework and its [source code](https://github.com/captainwz/svg-3d-builder/tree/master/demo/exhibition).
 
@@ -51,8 +51,8 @@ Builder
 ## API
 You also need to look up the [API document](https://github.com/captainwz/svg-3d-builder/tree/master/api.md).
 
-## Lisence
-Apache
+## License
+Apache License, Version 2.0
 
 ## Other
 [postscript](https://libcafe.com/2018/08/25/3d-builder/)
